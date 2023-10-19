@@ -64,10 +64,6 @@ import java.io.IOException
 import java.util.concurrent.ArrayBlockingQueue
 import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.opengles.GL10
-<<<<<<< HEAD
-import kotlin.math.abs
-=======
->>>>>>> 9e100cce72bb5d62c7722e67375f6707cc30f802
 
 class MainActivity : AppCompatActivity(), GLSurfaceView.Renderer {
 
@@ -98,11 +94,6 @@ class MainActivity : AppCompatActivity(), GLSurfaceView.Renderer {
   private var cannonAttachment: PlaneAttachment? = null
   private var targetAttachment: PlaneAttachment? = null
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 9e100cce72bb5d62c7722e67375f6707cc30f802
   // Temporary matrix allocated here to reduce number of allocations and taps for each frame.
   private val maxAllocationSize = 16
   private val anchorMatrix = FloatArray(maxAllocationSize)
@@ -123,11 +114,6 @@ class MainActivity : AppCompatActivity(), GLSurfaceView.Renderer {
     setupSurfaceView()
   }
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 9e100cce72bb5d62c7722e67375f6707cc30f802
   fun onRadioButtonClicked(view: View) {
     when (view.id) {
       R.id.radioCannon -> mode = Mode.CANNON
@@ -136,10 +122,6 @@ class MainActivity : AppCompatActivity(), GLSurfaceView.Renderer {
     }
   }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 9e100cce72bb5d62c7722e67375f6707cc30f802
   private fun setupSurfaceView() {
     // Set up renderer.
     surfaceView.preserveEGLContextOnPause = true
@@ -151,19 +133,6 @@ class MainActivity : AppCompatActivity(), GLSurfaceView.Renderer {
     surfaceView.setOnTouchListener { _, event -> gestureDetector.onTouchEvent(event) }
   }
 
-<<<<<<< HEAD
-  private fun onLongTap(e: MotionEvent) {
-    when (mode) {
-      Mode.VIKING -> vikingAttachment = null
-      Mode.CANNON -> cannonAttachment = null
-      Mode.TARGET -> targetAttachment = null
-    }
-  }
-
-
-
-=======
->>>>>>> 9e100cce72bb5d62c7722e67375f6707cc30f802
   private fun setupTapDetector() {
     gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
       override fun onSingleTapUp(e: MotionEvent): Boolean {
@@ -174,13 +143,17 @@ class MainActivity : AppCompatActivity(), GLSurfaceView.Renderer {
       override fun onDown(e: MotionEvent): Boolean {
         return true
       }
-<<<<<<< HEAD
       override fun onLongPress(e: MotionEvent) {
         onLongTap(e)
       }
-=======
->>>>>>> 9e100cce72bb5d62c7722e67375f6707cc30f802
     })
+  }
+  private fun onLongTap(e: MotionEvent) {
+    when (mode) {
+      Mode.VIKING -> vikingAttachment = null
+      Mode.CANNON -> cannonAttachment = null
+      Mode.TARGET -> targetAttachment = null
+    }
   }
 
   private fun onSingleTap(e: MotionEvent) {
@@ -388,18 +361,10 @@ class MainActivity : AppCompatActivity(), GLSurfaceView.Renderer {
           viewMatrix,
           lightIntensity
         )
-<<<<<<< HEAD
-
-=======
->>>>>>> 9e100cce72bb5d62c7722e67375f6707cc30f802
         // TODO: Call drawObject() for Viking, Cannon and Target here
       } catch (t: Throwable) {
         Log.e(TAG, getString(R.string.exception_on_opengl), t)
       }
-<<<<<<< HEAD
-
-=======
->>>>>>> 9e100cce72bb5d62c7722e67375f6707cc30f802
     }
   }
 
@@ -423,20 +388,12 @@ class MainActivity : AppCompatActivity(), GLSurfaceView.Renderer {
       lightIntensity: FloatArray
   ) {
     if (planeAttachment?.isTracking == true) {
-<<<<<<< HEAD
-
-=======
->>>>>>> 9e100cce72bb5d62c7722e67375f6707cc30f802
       planeAttachment.pose.toMatrix(anchorMatrix, 0)
 
       // Update and draw the model
       objectRenderer.updateModelMatrix(anchorMatrix, scaleFactor)
       objectRenderer.draw(viewMatrix, projectionMatrix, lightIntensity)
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> 9e100cce72bb5d62c7722e67375f6707cc30f802
   }
 
   private fun drawBackground(frame: Frame) {
