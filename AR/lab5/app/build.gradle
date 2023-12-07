@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 34
     defaultConfig {
         applicationId "com.google.ar.core.codelabs.hellogeospatial"
 
@@ -27,6 +27,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures{
+        viewBinding true
+    }
     namespace 'com.google.ar.core.codelabs.hellogeospatial'
 }
 
@@ -48,7 +51,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:20+'
     implementation 'com.google.android.gms:play-services-location:19+'
     implementation 'com.google.android.gms:play-services-maps:18.0.2'
-    //implementation 'androidx.room:room-runtime:2.6.1'
-    //implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2"
-
+    implementation 'androidx.room:room-ktx:2.4.3'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
+kapt 'androidx.room:room-compiler:2.4.3'
+    implementation 'com.google.maps.android:android-maps-utils:3.7.0'
 }

@@ -19,8 +19,11 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import androidx.room.Room
 import com.google.ar.core.Config
 import com.google.ar.core.Session
+import com.google.ar.core.codelabs.hellogeospatial.databinding.ActivityMainBinding
 import com.google.ar.core.codelabs.hellogeospatial.helpers.ARCoreSessionLifecycleHelper
 import com.google.ar.core.codelabs.hellogeospatial.helpers.GeoPermissionsHelper
 import com.google.ar.core.codelabs.hellogeospatial.helpers.HelloGeoView
@@ -40,6 +43,8 @@ class HelloGeoActivity : AppCompatActivity() {
   lateinit var arCoreSessionHelper: ARCoreSessionLifecycleHelper
   lateinit var view: HelloGeoView
   lateinit var renderer: HelloGeoRenderer
+
+
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
