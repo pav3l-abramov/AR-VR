@@ -50,10 +50,15 @@ import android.graphics.BitmapFactory
 import android.opengl.GLES20
 import android.opengl.GLUtils
 import android.opengl.Matrix
+import android.os.Environment
 import de.javagl.obj.ObjData
 import de.javagl.obj.ObjReader
 import de.javagl.obj.ObjUtils
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileNotFoundException
 import java.io.IOException
+import java.io.InputStream
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 
@@ -191,7 +196,9 @@ class ObjectRenderer {
 
     // Read the obj file.
     val objInputStream = context.assets.open(objAssetName)
-    var obj = ObjReader.read(objInputStream)
+        //val inputFile = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "your_obj_file_name.obj")
+      val inputFile=readFromDownload(context,"downloaded_file.obj")
+    var obj = ObjReader.read(inputFile)
     // Prepare the Obj so that its structure is suitable for rendering with OpenGL
     obj = ObjUtils.convertToRenderable(obj)
 
@@ -441,5 +448,17 @@ class ObjectRenderer {
       v[2] *= reciprocalLength
     }
   }
+
+    private fun readFromDownload(context: Context, filename: String): InputStream? {
+        var inputStream: InputStream? = null
+        val storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+        val file = File(storageDir, filename)
+        try {
+            inputStream = FileInputStream(file)
+        } catch (e: FileNotFoundException) {
+            e.printStackTrace()
+        }
+        return inputStream
+    }
 
 }

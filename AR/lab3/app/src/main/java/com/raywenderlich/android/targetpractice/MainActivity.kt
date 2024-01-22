@@ -45,9 +45,11 @@
 
 package com.raywenderlich.android.targetpractice
 
+import android.content.Context
 import android.opengl.GLES20
 import android.opengl.GLSurfaceView
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
@@ -60,7 +62,14 @@ import com.google.ar.core.exceptions.*
 import com.raywenderlich.android.targetpractice.common.helpers.*
 import com.raywenderlich.android.targetpractice.common.rendering.*
 import kotlinx.android.synthetic.main.activity_main.*
+import java.io.BufferedReader
+import java.io.BufferedWriter
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileWriter
 import java.io.IOException
+import java.io.InputStream
+import java.io.InputStreamReader
 import java.util.concurrent.ArrayBlockingQueue
 import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.opengles.GL10
@@ -99,7 +108,12 @@ class MainActivity : AppCompatActivity(), GLSurfaceView.Renderer {
   private val anchorMatrix = FloatArray(maxAllocationSize)
   private val queuedSingleTaps = ArrayBlockingQueue<MotionEvent>(maxAllocationSize)
 
+
+
   override fun onCreate(savedInstanceState: Bundle?) {
+
+
+
     setTheme(R.style.AppTheme)
 
     super.onCreate(savedInstanceState)
@@ -112,14 +126,6 @@ class MainActivity : AppCompatActivity(), GLSurfaceView.Renderer {
 
     setupTapDetector()
     setupSurfaceView()
-  }
-
-  fun onRadioButtonClicked(view: View) {
-    when (view.id) {
-      R.id.radioCannon -> mode = Mode.CANNON
-      R.id.radioTarget -> mode = Mode.TARGET
-      else -> mode = Mode.VIKING
-    }
   }
 
   private fun setupSurfaceView() {
@@ -274,6 +280,9 @@ class MainActivity : AppCompatActivity(), GLSurfaceView.Renderer {
   }
 
   override fun onSurfaceCreated(gl: GL10?, config: EGLConfig?) {
+
+
+
     GLES20.glClearColor(0.1f, 0.1f, 0.1f, 1.0f)
 
     // Prepare the rendering objects. This involves reading shaders, so may throw an IOException.
@@ -290,7 +299,7 @@ class MainActivity : AppCompatActivity(), GLSurfaceView.Renderer {
       targetObject.createOnGlThread(this@MainActivity, getString(R.string.model_target_obj), getString(R.string.model_target_png))
 
 // 2
-      targetObject.setMaterialProperties(0.0f, 3.5f, 1.0f, 6.0f)
+      targetObject.setMaterialProperties(0.0f, 1.5f, 0.5f, 0.5f)
       vikingObject.setMaterialProperties(0.0f, 3.5f, 1.0f, 6.0f)
       cannonObject.setMaterialProperties(0.0f, 3.5f, 1.0f, 6.0f)
     } catch (e: IOException) {
@@ -344,23 +353,6 @@ class MainActivity : AppCompatActivity(), GLSurfaceView.Renderer {
           lightIntensity
         )
 
-        drawObject(
-          cannonObject,
-          cannonAttachment,
-          Mode.CANNON.scaleFactor,
-          projectionMatrix,
-          viewMatrix,
-          lightIntensity
-        )
-
-        drawObject(
-          targetObject,
-          targetAttachment,
-          Mode.TARGET.scaleFactor,
-          projectionMatrix,
-          viewMatrix,
-          lightIntensity
-        )
         // TODO: Call drawObject() for Viking, Cannon and Target here
       } catch (t: Throwable) {
         Log.e(TAG, getString(R.string.exception_on_opengl), t)
@@ -526,4 +518,5 @@ class MainActivity : AppCompatActivity(), GLSurfaceView.Renderer {
     // 3
     return PlaneAttachment(plane, anchor)
   }
+
 }
